@@ -22,8 +22,11 @@ class ChatHeadService : Service() {
 
    override fun onCreate() {
       super.onCreate()
-      view = LayoutInflater.from(this).inflate(R.layout.layout_head, null)
+      setupHead()
+   }
 
+   private fun setupHead() {
+      view = LayoutInflater.from(this).inflate(R.layout.layout_head, null)
       val params = WindowManager.LayoutParams(
          WindowManager.LayoutParams.WRAP_CONTENT,
          WindowManager.LayoutParams.WRAP_CONTENT,
@@ -36,6 +39,7 @@ class ChatHeadService : Service() {
       params.y = 100
       windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
       windowManager?.addView(view, params)
+
    }
 
    override fun onDestroy() {
