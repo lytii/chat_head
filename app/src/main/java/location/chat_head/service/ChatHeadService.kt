@@ -28,8 +28,6 @@ class ChatHeadService : Service() {
    private fun setupHead() {
       view = LayoutInflater.from(this).inflate(R.layout.layout_head, null)
       val params = WindowManager.LayoutParams(
-         WindowManager.LayoutParams.WRAP_CONTENT,
-         WindowManager.LayoutParams.WRAP_CONTENT,
          WindowManager.LayoutParams.TYPE_PHONE,
          WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
          PixelFormat.TRANSLUCENT
@@ -45,7 +43,18 @@ class ChatHeadService : Service() {
 
    private fun expandHead(view: View) {
       view.findViewById<View>(R.id.collapsed_view).visibility = View.GONE
-      view.findViewById<View>(R.id.expanded_view).visibility = View.VISIBLE
+      view.findViewById<View>(R.id.expanded_view).apply {
+         visibility = View.VISIBLE
+         setOnClickListener { collapseHead(view) }
+      }
+   }
+
+   private fun collapseHead(view: View) {
+      view.findViewById<View>(R.id.expanded_view).visibility = View.GONE
+      view.findViewById<View>(R.id.collapsed_view).apply {
+         visibility = View.VISIBLE
+         setOnClickListener { expandHead(view) }
+      }
    }
 
    override fun onDestroy() {
