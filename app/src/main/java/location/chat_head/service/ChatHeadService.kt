@@ -40,6 +40,12 @@ class ChatHeadService : Service() {
       windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
       windowManager?.addView(view, params)
 
+      view?.setOnClickListener { expandHead(it) }
+   }
+
+   private fun expandHead(view: View) {
+      view.findViewById<View>(R.id.collapsed_view).visibility = View.GONE
+      view.findViewById<View>(R.id.expanded_view).visibility = View.VISIBLE
    }
 
    override fun onDestroy() {
